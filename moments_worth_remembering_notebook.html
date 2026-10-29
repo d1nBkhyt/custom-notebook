@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moments Worth Remembering — Personal Notebook Mockup</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bookGreen: '#1b3024',
+                        bookGreenDark: '#112017',
+                        bookGreenLight: '#233d2f',
+                        creamPaper: '#fbf9f4',
+                        creamDark: '#f3efe4',
+                        inkText: '#2b2927',
+                        inkMuted: '#78746f',
+                        goldFoil: '#d4af37',
+                        goldSubtle: '#c5a059',
+                        ivoryText: '#f5f2eb'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        handwriting: ['Caveat', 'cursive'],
+                        mono: ['"Special Elite"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Realistic Linen Cover Texture */
+        .linen-texture {
+            background-color: #1b3024;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0),
+                radial-gradient(rgba(0, 0, 0, 0.25) 1px, transparent 0),
+                linear-gradient(to right, rgba(0,0,0,0.15), transparent 10%, transparent 90%, rgba(0,0,0,0.25));
+            background-size: 3px 3px, 4px 4px, 100% 100%;
+            background-position: 0 0, 1px 1px, 0 0;
+        }
+
+        /* Debossed Gold / Ivory Effect */
+        .debossed-gold {
+            color: #f3efe6;
+            text-shadow: 
+                0px 1px 1px rgba(255, 255, 255, 0.2), 
+                0px -1px 2px rgba(0, 0, 0, 0.8),
+                0px 0px 8px rgba(212, 175, 55, 0.25);
+        }
+
+        .debossed-subtle {
+            color: #d8d0c1;
+            text-shadow: 0px -1px 1px rgba(0,0,0,0.7), 0px 1px 0px rgba(255,255,255,0.1);
+        }
+
+        /* Natural Fine Paper Texture */
+        .paper-texture {
+            background-color: #fbf9f4;
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 4%, transparent 96%, rgba(0,0,0,0.02) 100%),
+                radial-gradient(rgba(0,0,0,0.015) 1px, transparent 0);
+            background-size: 100% 100%, 3px 3px;
+        }
+
+        /* Book Spine Shadow / Crease */
+        .spine-left-shadow {
+            box-shadow: inset -12px 0 15px -10px rgba(0, 0, 0, 0.12);
+        }
+        .spine-right-shadow {
+            box-shadow: inset 12px 0 15px -10px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Realistic Hardcover Book Edge & Shadow */
+        .book-3d-shadow {
+            box-shadow: 
+                -20px 25px 50px -10px rgba(0, 0, 0, 0.5),
+                0 10px 20px -5px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(0,0,0,0.1);
+        }
+
+        .page-edge-left {
+            border-left: 5px solid #eae3d2;
+        }
+        .page-edge-right {
+            border-right: 5px solid #eae3d2;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #112017;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #284736;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="h-full bg-[#121c16] text-inkText font-sans antialiased flex flex-col justify-between overflow-x-hidden selection:bg-goldFoil selection:text-bookGreenDark">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-[#0e1712] text-ivoryText px-4 md:px-8 py-3.5 border-b border-[#21382b] flex flex-wrap items-center justify-between shrink-0 gap-3 z-30">
+        <div class="flex items-center space-x-3">
+            <div class="w-2.5 h-2.5 rounded-full bg-goldFoil animate-pulse"></div>
+            <div>
+                <h1 class="font-serif text-base md:text-lg tracking-widest text-ivoryText font-normal uppercase">Moments Worth Remembering</h1>
+                <p class="text-[11px] text-stone-400 font-sans tracking-wide">A5 Dark Linen Hardcover • Custom Birthday Gift Mockup</p>
+            </div>
+        </div>
+
+        <!-- Mode Toggle & Quick Jump Button -->
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <!-- View Mode Tabs -->
+            <div class="bg-[#182a20] p-1 rounded-lg border border-[#274434] flex items-center text-xs">
+                <button id="viewModeExteriorBtn" onclick="switchViewMode('exterior')" class="px-3 py-1.5 rounded-md font-medium transition text-stone-300 hover:text-white">
+                    Exterior Covers
+                </button>
+                <button id="viewModeInteriorBtn" onclick="switchViewMode('interior')" class="px-3 py-1.5 rounded-md font-medium transition text-stone-300 hover:text-white">
+                    Interior Spreads
+                </button>
+            </div>
+
+            <button onclick="openTocModal()" class="px-3 py-1.5 bg-[#1f372a] hover:bg-[#284636] text-ivoryText text-xs font-medium rounded-lg transition border border-[#2e503e] flex items-center space-x-1.5 shadow-sm">
+                <svg class="w-3.5 h-3.5 text-goldFoil" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                <span class="hidden sm:inline">Index / TOC</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Display Canvas -->
+    <main class="flex-1 flex flex-col items-center justify-center p-3 sm:p-6 md:p-10 relative overflow-y-auto">
+        
+        <!-- Ribbon Bookmark Visual Indicator hanging in workspace -->
+        <div class="absolute top-0 right-12 md:right-24 w-3.5 h-28 bg-[#8b1e1e] shadow-lg z-20 rounded-b-sm pointer-events-none transform -translate-y-2 opacity-80">
+            <div class="absolute bottom-0 w-full h-2 bg-[#5a1111]"></div>
+        </div>
+
+        <!-- EXTERIOR COVERS VIEW (Front & Back Side-by-Side) -->
+        <div id="exteriorCoverContainer" class="w-full max-w-5xl my-auto transition-all duration-500">
+            <div class="text-center mb-4">
+                <span class="text-xs uppercase tracking-widest text-goldFoil/80 font-mono">Exterior View • Deep Forest Green Linen & Gold Foil Debossing</span>
+            </div>
+
+            <div class="flex flex-col md:flex-row w-full min-h-[520px] md:h-[580px] rounded-lg book-3d-shadow overflow-hidden border border-[#2c4737]/40">
+                
+                <!-- BACK COVER -->
+                <div class="w-full md:w-1/2 linen-texture p-8 sm:p-12 md:p-16 flex flex-col justify-between items-center text-center relative border-b md:border-b-0 md:border-r border-[#264233]">
+                    <div class="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/40 to-transparent"></div>
+                    <div></div>
+                    
+                    <!-- Clean & Minimal Centered Monogram / Deboss Seal -->
+                    <div class="my-auto space-y-3 opacity-60">
+                        <div class="w-1.5 h-1.5 rounded-full bg-goldFoil/80 mx-auto"></div>
+                    </div>
+
+                    <div class="text-[9px] tracking-[0.25em] uppercase debossed-subtle opacity-70 font-serif">
+                        MOMENTS WORTH REMEMBERING
+                    </div>
+                </div>
+
+                <!-- FRONT COVER -->
+                <div class="w-full md:w-1/2 linen-texture p-8 sm:p-12 md:p-16 flex flex-col justify-between items-center text-center relative page-edge-right">
+                    <div class="absolute right-0 top-0 bottom-0 w-3 bg-gradient-to-l from-black/40 to-transparent"></div>
+                    <div class="text-[10px] tracking-widest uppercase debossed-subtle font-mono">Front Cover</div>
+
+                    <div class="my-auto space-y-6">
+                        <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl tracking-[0.25em] font-light leading-snug debossed-gold uppercase">
+                            Moments<br>Worth<br>Remembering
+                        </h2>
+                        <div class="pt-2">
+                            <span class="font-mono text-sm tracking-[0.3em] debossed-gold opacity-90">2026 →</span>
+                        </div>
+                    </div>
+
+                    <div class="text-[10px] tracking-widest uppercase debossed-subtle">
+                        A5 Linen Hardcover
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-6">
+                <button onclick="switchViewMode('interior')" class="px-6 py-2.5 bg-goldFoil text-bookGreenDark hover:bg-[#e2bd46] font-medium text-xs tracking-wider uppercase rounded-md shadow-md transition transform hover:scale-105">
+                    Open Notebook & Inspect Pages →
+                </button>
+            </div>
+        </div>
+
+        <!-- INTERIOR PAGES VIEW (Spreads) -->
+        <div id="interiorSpreadsContainer" class="w-full max-w-5xl my-auto transition-all duration-500 hidden">
+            
+            <div id="bookSpread" class="flex flex-col md:flex-row w-full min-h-[580px] md:h-[630px] paper-texture rounded-lg book-3d-shadow overflow-hidden border border-stone-300/80 transition-all duration-300">
+                
+                <!-- Left Page -->
+                <div id="leftPage" class="w-full md:w-1/2 p-7 sm:p-10 md:p-12 flex flex-col justify-between relative border-b md:border-b-0 md:border-r border-stone-300/70 spine-left-shadow page-edge-left">
+                    <!-- Injected via JS -->
+                </div>
+
+                <!-- Right Page -->
+                <div id="rightPage" class="w-full md:w-1/2 p-7 sm:p-10 md:p-12 flex flex-col justify-between relative spine-right-shadow page-edge-right">
+                    <!-- Injected via JS -->
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Bottom Footer Controls -->
+    <footer id="interiorControls" class="bg-[#0e1712] text-stone-300 px-4 md:px-8 py-3.5 border-t border-[#21382b] flex flex-wrap items-center justify-between shrink-0 gap-3 z-30">
+        
+        <div class="flex items-center space-x-2 text-xs text-stone-400 font-mono">
+            <span id="sectionTitleText" class="text-goldFoil font-sans font-medium">Page Spread</span>
+            <span>•</span>
+            <span id="pageRangeDisplay">Pages 01 - 02</span>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="flex items-center space-x-3">
+            <button id="prevSpreadBtn" onclick="prevSpread()" class="px-3.5 py-1.5 bg-[#1a2e23] hover:bg-[#233d2f] text-ivoryText text-xs font-medium rounded transition border border-[#2b4b39] disabled:opacity-30 disabled:cursor-not-allowed flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <span>Previous</span>
+            </button>
+
+            <span id="spreadIndicator" class="text-xs font-mono text-stone-400 px-2">1 / 6</span>
+
+            <button id="nextSpreadBtn" onclick="nextSpread()" class="px-3.5 py-1.5 bg-[#1a2e23] hover:bg-[#233d2f] text-ivoryText text-xs font-medium rounded transition border border-[#2b4b39] disabled:opacity-30 disabled:cursor-not-allowed flex items-center space-x-1">
+                <span>Next</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+
+        <div class="text-xs text-stone-400 italic hidden lg:block">
+            Use Left / Right arrow keys to flip pages
+        </div>
+    </footer>
+
+    <!-- Table of Contents Modal -->
+    <div id="tocModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#17271e] text-ivoryText w-full max-w-xl rounded-xl border border-[#2a4a38] shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="px-6 py-4 border-b border-[#243e2f] flex items-center justify-between">
+                <div>
+                    <h3 class="font-serif text-lg tracking-wide text-ivoryText">Notebook Structure</h3>
+                    <p class="text-xs text-stone-400">Click any spread to navigate</p>
+                </div>
+                <button onclick="closeTocModal()" class="text-stone-400 hover:text-white p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto space-y-2" id="tocList">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="px-6 py-3 bg-[#111e17] border-t border-[#243e2f] flex justify-between items-center">
+                <button onclick="switchViewMode('exterior'); closeTocModal();" class="text-xs text-goldFoil hover:underline font-mono">View Exterior Cover</button>
+                <button onclick="closeTocModal()" class="px-4 py-1.5 bg-[#213a2c] hover:bg-[#2b4b39] text-xs text-ivoryText rounded transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        // Interior Spreads Data
+        const spreads = [
+            {
+                title: "Opening & Handwritten Note",
+                pageRange: "Pages 01 - 02",
+                // Left page: Page 01 (Completely Blank Paper)
+                left: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                `,
+                // Right page: Page 02 (Handwritten note - no page number)
+                right: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div></div>
+                        <div class="my-auto px-2 sm:px-6 space-y-4">
+                            <p class="font-handwriting text-2xl sm:text-3xl text-stone-900 leading-snug">For the moments worth remembering.</p>
+                            
+                            <div class="space-y-3 text-stone-800 font-sans text-xs sm:text-sm leading-relaxed pt-2">
+                                <p>You're about to begin a new chapter of your life, and I thought you might like having somewhere to keep the little moments along the way.</p>
+                                <p>The beautiful ones, the unexpected ones, the difficult ones, and the ones that teach you something.</p>
+                                <p>Years from now, I hope you can open these pages and meet the 20-year-old version of yourself again.</p>
+                            </div>
+
+                            <p class="font-handwriting text-2xl sm:text-3xl text-stone-900 pt-3">Happy birthday.</p>
+                        </div>
+                        <div></div>
+                    </div>
+                `
+            },
+            {
+                title: "The Concept & Rules",
+                pageRange: "Pages 03 - 04",
+                // Left page: Page 03 (No page number)
+                left: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div></div>
+                        <div class="my-auto space-y-5 px-2 sm:px-4">
+                            <h3 class="font-serif text-base sm:text-lg font-bold tracking-wider text-stone-900 uppercase leading-snug">
+                                YOU DON'T HAVE TO WRITE EVERY DAY.
+                            </h3>
+                            <div class="space-y-3 text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
+                                <p>This isn't a diary.</p>
+                                <p>You don't need to record everything.</p>
+                                <p class="font-medium text-stone-900">Just keep the moments you think your future self might want to remember.</p>
+                                
+                                <ul class="list-disc pl-5 space-y-1 text-xs text-stone-600 pt-1">
+                                    <li>A conversation.</li>
+                                    <li>A person.</li>
+                                    <li>A place.</li>
+                                    <li>A mistake.</li>
+                                    <li>A beautiful day.</li>
+                                    <li>A difficult one.</li>
+                                    <li>Something unexpected.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-xs text-stone-500 font-serif italic text-center pt-3">
+                            write as much or as little as you want.
+                        </div>
+                    </div>
+                `,
+                // Right page: Page 04 (No page number)
+                right: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div></div>
+                        <div class="my-auto text-center px-4 sm:px-8">
+                            <!-- Framed Phrase -->
+                            <div class="border-2 border-stone-800 p-8 sm:p-12 my-auto inline-block w-full">
+                                <p class="font-serif text-xl sm:text-2xl md:text-3xl text-stone-900 font-normal tracking-wide uppercase">
+                                    THERE ARE NO RULES HERE.
+                                </p>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                `
+            },
+            {
+                title: "Moment #01 (Structured Entry)",
+                pageRange: "Pages 05 - 06",
+                // Left page: PAGE 05 (Page numbers strictly start here)
+                left: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div class="flex justify-between items-center text-[10px] text-stone-500 font-mono">
+                            <span class="font-bold">MOMENT #01</span>
+                            <span class="tracking-widest text-stone-700 font-bold">PAGE 05</span>
+                        </div>
+                        <div class="space-y-4 my-auto">
+                            <div class="space-y-1.5">
+                                <span class="text-xs font-bold uppercase tracking-wider text-stone-800">WHEN</span>
+                                <div class="text-xs text-stone-600 space-y-2 pt-1 font-mono">
+                                    <div class="flex items-center justify-between border-b border-stone-300/80 pb-1">
+                                        <span class="text-stone-400">Date:</span>
+                                        <span class="text-stone-300">________________________</span>
+                                    </div>
+                                    <div class="flex items-center justify-between border-b border-stone-300/80 pb-1">
+                                        <span class="text-stone-400">Place:</span>
+                                        <span class="text-stone-300">________________________</span>
+                                    </div>
+                                    <div class="flex items-center justify-between border-b border-stone-300/80 pb-1">
+                                        <span class="text-stone-400">People:</span>
+                                        <span class="text-stone-300">________________________</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-1.5 pt-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-stone-800">THE MOMENT</span>
+                                <p class="text-[11px] text-stone-500 italic">What happened?</p>
+                                <div class="space-y-3 pt-1">
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-[10px] text-stone-400 italic">You can leave this blank.</div>
+                    </div>
+                `,
+                // Right page: PAGE 06
+                right: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div class="text-right text-[10px] text-stone-700 font-mono tracking-widest font-bold">PAGE 06</div>
+                        <div class="space-y-3.5 my-auto">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold uppercase tracking-wider text-stone-800">WHY KEEP IT?</span>
+                                <p class="text-[11px] text-stone-500 italic">Why do I want to remember this?</p>
+                                <div class="space-y-2.5 pt-1">
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1 pt-1">
+                                <span class="text-xs font-bold uppercase tracking-wider text-stone-800">LOOKING BACK</span>
+                                <p class="text-[11px] text-stone-500 italic">What did this make me think / feel / realize?</p>
+                                <div class="space-y-2.5 pt-1">
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1 pt-1">
+                                <span class="text-xs font-bold uppercase tracking-wider text-stone-800">KEEP THIS</span>
+                                <p class="text-[11px] text-stone-500 italic">What don't I want to forget?</p>
+                                <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                            </div>
+
+                            <!-- 5 Unlabelled Mood Circles -->
+                            <div class="flex items-center justify-between pt-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-stone-800">Today felt</span>
+                                <div class="flex space-x-3">
+                                    <div class="w-4 h-4 rounded-full border border-stone-400"></div>
+                                    <div class="w-4 h-4 rounded-full border border-stone-400"></div>
+                                    <div class="w-4 h-4 rounded-full border border-stone-400"></div>
+                                    <div class="w-4 h-4 rounded-full border border-stone-400"></div>
+                                    <div class="w-4 h-4 rounded-full border border-stone-400"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                `
+            },
+            {
+                title: "Moment #05 (Special Blank Canvas)",
+                pageRange: "Pages 07 - 08",
+                // Left page: PAGE 07
+                left: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div class="flex justify-between items-center text-[10px] text-stone-500 font-mono">
+                            <span class="font-bold">MOMENT #05 — SPECIAL</span>
+                            <span class="tracking-widest text-stone-700 font-bold">PAGE 07</span>
+                        </div>
+                        <div class="my-auto text-center space-y-4 px-4">
+                            <h3 class="font-serif text-lg sm:text-xl font-normal tracking-widest text-stone-900 uppercase leading-relaxed">
+                                A MEMORY THAT NEEDS MORE SPACE.
+                            </h3>
+                        </div>
+                        <div></div>
+                    </div>
+                `,
+                // Right page: PAGE 08 (Completely blank creative canvas)
+                right: `
+                    <div class="h-full flex flex-col justify-between p-2">
+                        <div class="flex justify-end text-[10px] text-stone-700 font-mono tracking-widest font-bold">
+                            <span>PAGE 08</span>
+                        </div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                `
+            },
+            {
+                title: "Fragments & Memory Lists",
+                pageRange: "Pages 09 - 10",
+                // Left page: PAGE 09
+                left: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div class="flex justify-end text-[10px] text-stone-700 font-mono tracking-widest font-bold">
+                            <span>PAGE 09</span>
+                        </div>
+                        <div class="space-y-5 my-auto">
+                            <h3 class="font-serif text-sm sm:text-base font-bold tracking-wider text-stone-900 uppercase">
+                                A LITTLE THING I WANT TO REMEMBER
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-2 border-b border-stone-300/80 pb-1 font-mono text-xs">
+                                    <span class="text-stone-400">Date:</span>
+                                    <span class="text-stone-300">________________________</span>
+                                </div>
+                                <div class="space-y-3 pt-2">
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                    <div class="border-b border-stone-300/80 h-5 w-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                `,
+                // Right page: PAGE 10
+                right: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div class="text-right text-[10px] text-stone-700 font-mono tracking-widest font-bold">PAGE 10</div>
+                        <div class="space-y-5 my-auto px-2">
+                            <h3 class="font-serif text-sm sm:text-base font-bold tracking-wider text-stone-900 uppercase">
+                                THINGS I WANT TO REMEMBER
+                            </h3>
+                            <div class="space-y-3.5">
+                                <div class="border-b border-stone-300/80 h-7 w-full"></div>
+                                <div class="border-b border-stone-300/80 h-7 w-full"></div>
+                                <div class="border-b border-stone-300/80 h-7 w-full"></div>
+                                <div class="border-b border-stone-300/80 h-7 w-full"></div>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                `
+            },
+            {
+                title: "For Later & Final Message",
+                pageRange: "Pages 11 - 12",
+                // Left page: PAGE 11
+                left: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div class="flex justify-end text-[10px] text-stone-700 font-mono tracking-widest font-bold">
+                            <span>PAGE 11</span>
+                        </div>
+                        <div class="my-auto text-center space-y-3 px-4">
+                            <h3 class="font-serif text-xl sm:text-2xl tracking-[0.2em] text-stone-900 uppercase">
+                                FOR LATER
+                            </h3>
+                        </div>
+                        <div></div>
+                    </div>
+                `,
+                // Right page: PAGE 12 (Final Page bounded by top and bottom rules)
+                right: `
+                    <div class="h-full flex flex-col justify-between">
+                        <div class="text-right text-[10px] text-stone-700 font-mono tracking-widest font-bold">PAGE 12</div>
+                        
+                        <!-- Center piece bracketed by horizontal rule lines at top and bottom -->
+                        <div class="my-auto text-center space-y-6 px-4 sm:px-8">
+                            <div class="w-16 h-px bg-stone-400 mx-auto"></div>
+                            
+                            <div class="space-y-4 font-serif text-base sm:text-lg italic text-stone-800 leading-relaxed">
+                                <p>If you're reading this years from now...</p>
+                                <p>I hope you like the person you've become.</p>
+                                <p>And I hope some of these pages remind you of the person you once were.</p>
+                            </div>
+
+                            <div class="w-16 h-px bg-stone-400 mx-auto"></div>
+                        </div>
+
+                        <div></div>
+                    </div>
+                `
+            }
+        ];
+
+        let currentSpreadIndex = 0;
+        let currentViewMode = 'exterior'; // 'exterior' or 'interior'
+
+        function switchViewMode(mode) {
+            currentViewMode = mode;
+            const exteriorContainer = document.getElementById('exteriorCoverContainer');
+            const interiorContainer = document.getElementById('interiorSpreadsContainer');
+            const interiorControls = document.getElementById('interiorControls');
+            
+            const extBtn = document.getElementById('viewModeExteriorBtn');
+            const intBtn = document.getElementById('viewModeInteriorBtn');
+
+            if (mode === 'exterior') {
+                exteriorContainer.classList.remove('hidden');
+                interiorContainer.classList.add('hidden');
+                
+                extBtn.classList.add('bg-[#233f30]', 'text-white', 'shadow-sm');
+                extBtn.classList.remove('text-stone-300');
+                
+                intBtn.classList.remove('bg-[#233f30]', 'text-white', 'shadow-sm');
+                intBtn.classList.add('text-stone-300');
+            } else {
+                exteriorContainer.classList.add('hidden');
+                interiorContainer.classList.remove('hidden');
+
+                intBtn.classList.add('bg-[#233f30]', 'text-white', 'shadow-sm');
+                intBtn.classList.remove('text-stone-300');
+
+                extBtn.classList.remove('bg-[#233f30]', 'text-white', 'shadow-sm');
+                extBtn.classList.add('text-stone-300');
+
+                renderSpread();
+            }
+        }
+
+        function renderSpread() {
+            const spread = spreads[currentSpreadIndex];
+            document.getElementById('leftPage').innerHTML = spread.left;
+            document.getElementById('rightPage').innerHTML = spread.right;
+
+            document.getElementById('sectionTitleText').textContent = spread.title;
+            document.getElementById('pageRangeDisplay').textContent = spread.pageRange;
+            document.getElementById('spreadIndicator').textContent = `${currentSpreadIndex + 1} / ${spreads.length}`;
+
+            document.getElementById('prevSpreadBtn').disabled = currentSpreadIndex === 0;
+            document.getElementById('nextSpreadBtn').disabled = currentSpreadIndex === spreads.length - 1;
+        }
+
+        function nextSpread() {
+            if (currentSpreadIndex < spreads.length - 1) {
+                currentSpreadIndex++;
+                renderSpread();
+            }
+        }
+
+        function prevSpread() {
+            if (currentSpreadIndex > 0) {
+                currentSpreadIndex--;
+                renderSpread();
+            }
+        }
+
+        function openTocModal() {
+            const list = document.getElementById('tocList');
+            list.innerHTML = '';
+
+            spreads.forEach((spread, idx) => {
+                const item = document.createElement('div');
+                const isActive = (currentViewMode === 'interior' && idx === currentSpreadIndex);
+                
+                item.className = `p-3 rounded-lg border transition cursor-pointer flex items-center justify-between ${
+                    isActive ? 'bg-[#233f30] border-goldFoil/60 text-white' : 'bg-[#121f18] border-[#223d2f] text-stone-300 hover:bg-[#1a2d23]'
+                }`;
+                
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="font-mono text-xs text-goldFoil">0${idx + 1}</span>
+                        <div>
+                            <div class="text-xs sm:text-sm font-serif font-medium">${spread.title}</div>
+                            <div class="text-[10px] text-stone-400 font-mono">${spread.pageRange}</div>
+                        </div>
+                    </div>
+                    <span class="text-xs text-stone-400 font-mono">View →</span>
+                `;
+
+                item.onclick = () => {
+                    currentSpreadIndex = idx;
+                    switchViewMode('interior');
+                    closeTocModal();
+                };
+
+                list.appendChild(item);
+            });
+
+            document.getElementById('tocModal').classList.remove('hidden');
+        }
+
+        function closeTocModal() {
+            document.getElementById('tocModal').classList.add('hidden');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (currentViewMode === 'interior') {
+                if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                    nextSpread();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    prevSpread();
+                }
+            }
+        });
+
+        // Initialize view
+        window.onload = function() {
+            switchViewMode('exterior');
+        };
+    </script>
+</body>
+</html>
